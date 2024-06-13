@@ -8,8 +8,14 @@ export interface Vue {
     warnHandler?: any;
     silent?: boolean;
   };
-  mixin: (mixins: Partial<Record<Hook, any>>) => void;
+  mixin: (mixins: Mixins) => void;
 }
+
+export type Mixins = HookRecord & Data;
+
+type HookRecord = Partial<Record<Hook, any>>;
+
+type Data = { data: () => Record<string, any> };
 
 export type ViewModel = {
   _isVue?: boolean;
@@ -23,6 +29,7 @@ export type ViewModel = {
     _componentTag?: string;
     __file?: string;
   };
+  $data: Record<string, any>;
 };
 
 export interface VueOptions extends TracingOptions {
